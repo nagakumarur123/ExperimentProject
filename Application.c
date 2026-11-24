@@ -139,15 +139,19 @@ boolean fifoPop(RingBuffer_t *pFifo, uint16 *pOutSample)
 /* Read-only pointer traversal (const RingBuffer_t *) to calculate average */
 uint16 fifoAverage(const RingBuffer_t *pFifo)
 {
+    uint32 sum = 0U;
+    uint32 i = 0;
+    const uint16 *pCursor;
+
+
     if ((pFifo == NULL_PTR) || (pFifo->count == 0U))
     {
         return 0U;
     }
+    
+    pCursor = pFifo->pTail;
 
-    uint32 sum = 0U;
-    const uint16 *pCursor = pFifo->pTail;
-
-    for (uint32 i = 0U; i < pFifo->count; i++)
+    for (i = 0U; i < pFifo->count; i++)
     {
         sum += *pCursor;
         pCursor++;
