@@ -26,12 +26,12 @@
 #define LED_PORT_D109    &MODULE_P14,1                                           /* LED PORT D109: Port, Pin definition       */
 #define LED_PORT_D110    &MODULE_P14,2                                           /* LED PORT D110: Port, Pin definition       */
 
-#define WAIT_TIME1        250  /* Wait time1 in milliseconds */
-#define WAIT_TIME2        500  /* Wait time2 in milliseconds */
-#define WAIT_TIME3        750  /* Wait time3 in milliseconds */
-#define WAIT_TIME4        1000  /* Wait time4 in milliseconds */
+#define WAIT_TIME1        250U  /* Wait time1 in milliseconds */
+#define WAIT_TIME2        500U  /* Wait time2 in milliseconds */
+#define WAIT_TIME3        750U  /* Wait time3 in milliseconds */
+#define WAIT_TIME4        1000U  /* Wait time4 in milliseconds */
 
-#define FIFO_CAPACITY     8U
+#define FIFO_CAPACITY     16U
 
 static uint16 get2ByteRandomnumber(void);
 
@@ -88,6 +88,7 @@ void initializeRandomSeed(void)
 
     /* Read the lower 32 bits of the free-running STM0 timer */
     seed = IfxStm_getLower(&MODULE_STM0);
+
     srand(seed);
 }
 
@@ -100,7 +101,7 @@ boolean fifoPush(RingBuffer_t *pFifo, uint16 sample)
         return (FALSE); /* Buffer full or invalid pointer */
     }
 
-    /* Write sample to the address pointed to by pHead */
+    /* Write sample to the address pointed by pHead */
     *(pFifo->pHead) = sample;
     pFifo->pHead++;
 
@@ -163,9 +164,10 @@ uint16 fifoAverage(const RingBuffer_t *pFifo)
         }
     }
 
+    /* Calcualte the average*/
     average = (uint16)(sum / pFifo->count);
 
-    return ;
+    return (uint16)average;
 }
 
 
