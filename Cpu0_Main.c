@@ -113,10 +113,12 @@ void core0_main(void)
         if (voltageArr[adcCnt] > OVER_VOLTAGE_THRESHOLD)
         {
             /* Voltage exceeds threshold, take appropriate action */
+            printf("Over voltage detected: %f\n", voltageArr[adcCnt]);
         }
         else if (voltageArr[adcCnt] < UNDER_VOLTAGE_THRESHOLD)
         {
             /* Voltage below threshold, take appropriate action */
+            printf("Under voltage detected: %f\n", voltageArr[adcCnt]);
         }
         else
         {
