@@ -97,7 +97,7 @@ boolean fifoPush(RingBuffer_t *pFifo, uint16 sample)
 {
     if ((pFifo == NULL_PTR) || (pFifo->count >= FIFO_CAPACITY))
     {
-        return FALSE; /* Buffer full or invalid pointer */
+        return (FALSE); /* Buffer full or invalid pointer */
     }
 
     /* Write sample to the address pointed to by pHead */
@@ -111,7 +111,7 @@ boolean fifoPush(RingBuffer_t *pFifo, uint16 sample)
     }
 
     pFifo->count++;
-    return TRUE;
+    return (TRUE);
 }
 
 /* Pop a 2-byte sample out via an output pointer */
@@ -119,7 +119,7 @@ boolean fifoPop(RingBuffer_t *pFifo, uint16 *pOutSample)
 {
     if ((pFifo == NULL_PTR) || (pOutSample == NULL_PTR) || (pFifo->count == 0U))
     {
-        return FALSE; /* Buffer empty or invalid pointer */
+        return (FALSE); /* Buffer empty or invalid pointer */
     }
 
     /* Read from pTail and write into caller's variable */
@@ -133,7 +133,7 @@ boolean fifoPop(RingBuffer_t *pFifo, uint16 *pOutSample)
     }
 
     pFifo->count--;
-    return TRUE;
+    return (TRUE);
 }
 
 /* Read-only pointer traversal (const RingBuffer_t *) to calculate average */
@@ -142,6 +142,7 @@ uint16 fifoAverage(const RingBuffer_t *pFifo)
     uint32 sum = 0U;
     uint32 i = 0;
     const uint16 *pCursor;
+    uint32 average = 0U;
 
 
     if ((pFifo == NULL_PTR) || (pFifo->count == 0U))
@@ -162,7 +163,9 @@ uint16 fifoAverage(const RingBuffer_t *pFifo)
         }
     }
 
-    return (uint16)(sum / pFifo->count);
+    average = (uint16)(sum / pFifo->count);
+
+    return ;
 }
 
 

@@ -44,6 +44,14 @@
 #include "Blinky_LED.h"
 #include "Application.h"
 
+/**************** DEFINES ************************/
+#define VOLTAGE_ARRAY_COUNT         20U         /* Array to store voltage continuously */
+
+
+/********************* STATIC VARIABLES *************/
+static float voltageArr[VOLTAGE_ARRAY_COUNT];
+
+
 IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
 void core0_main(void)
@@ -53,6 +61,8 @@ void core0_main(void)
     volatile uint16 oldestSample = 0U;
     volatile uint32 i = 0;
     RingBuffer_t sensorFifo;
+    float voltage;
+    static uint8 adcCnt = 0;
 
 
     IfxCpu_enableInterrupts();
@@ -66,6 +76,8 @@ void core0_main(void)
     /* Wait for CPU sync event */
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
+    
+    init_EVADC_VoltageRead();
     
     fifoInit(&sensorFifo);
 
@@ -91,6 +103,15 @@ void core0_main(void)
         if (AdcCount > 4000U)
         {
             AdcCount = 100U;
+        }
+
+        /* Read battery voltage frequently and print it */
+
+        voltageArr[adcCnt] = read_Voltage(); /* capture last 20 iterations */
+        adcCnt++;
+        if (adcCnt >= VOLTAGE_ARRAY_COUNT)
+        {
+            adcCount = 0; /* Overwrite first value */
         }
 
         for (i = 0; i < 1000000; i++)
