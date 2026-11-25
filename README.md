@@ -1,12 +1,13 @@
-# ExperimentProject
-This is an experiment in TC3xx family of Infineon Micro controller.
+# Infineon TC397 Peripheral Control & Voltage Monitoring System
 
-This project has multi core environment.
+- Created comprehensive test plans and validation procedures for ADC voltage monitoring thresholds (<8V and >18V) to check abnormal voltage, UI reporting, LED sequencing logic, and buffer functionality. ADC peripheral has been configured with background sampling enabled and it produces the ADC counts when conversion has been completed.
 
-This project reads the ADC to convert into voltage and figure out whether the read voltage is in range or abnormal. Setting faults ..etc is not in scope.
+- Perform a design and architecture review of the Infineon TC397 Peripheral Control & Voltage Monitoring System, identifying scalability, safety, and multi-core optimization opportunities on the Infineon TC397 platform.
 
-It toggles multiple LEDs in a rythm by using random number of 2 bytes. 
+- Generate detailed technical documentation including software architecture diagrams, ADC data-flow descriptions, LED timing sequences, and circular buffer behavior for project handoff or audits.
 
-Also it contains the data push and pot into a circular buffer using pointers.
+- Improved embedded C code quality, including pointer usage, circular buffer implementation, memory safety, MISRA-C compliance considerations, and performance optimizations.
 
-As part of this project scope, everything been called from core0. Other cores just runs.
+- Enhance the project by leveraging TC397 multi-core capabilities, distributing ADC processing, diagnostics, and LED control across multiple cores instead of executing everything on Core0
+
+Design document link: https://github.com/nagakumarur123/ExperimentProject/blob/main/DesignDoc.docx 
