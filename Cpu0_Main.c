@@ -46,7 +46,8 @@
 
 /**************** DEFINES ************************/
 #define VOLTAGE_ARRAY_COUNT         20U         /* Array to store voltage continuously */
-
+#define OVER_VOLTAGE_THRESHOLD       18.0
+#define UNDER_VOLTAGE_THRESHOLD      8.0
 
 /********************* STATIC VARIABLES *************/
 static float voltageArr[VOLTAGE_ARRAY_COUNT];
@@ -78,7 +79,7 @@ void core0_main(void)
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
     
     init_EVADC_VoltageRead();
-    
+
     fifoInit(&sensorFifo);
 
     initializeLEDPorts();  /* Initialize the LED ports pins (at least 4 pins)      */
@@ -108,6 +109,21 @@ void core0_main(void)
         /* Read battery voltage frequently and print it */
 
         voltageArr[adcCnt] = read_Voltage(); /* capture last 20 iterations */
+
+        if (voltageArr[adcCnt] > OVER_VOLTAGE_THRESHOLD)
+        {
+            /* Voltage exceeds threshold, take appropriate action */
+        }
+        else if (voltageArr[adcCnt] < UNDER_VOLTAGE_THRESHOLD)
+        {
+            /* Voltage below threshold, take appropriate action */
+        }
+        else
+        {
+            /* Voltage within acceptable range, take appropriate action */
+        }
+
+
         adcCnt++;
         if (adcCnt >= VOLTAGE_ARRAY_COUNT)
         {
