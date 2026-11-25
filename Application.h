@@ -2,8 +2,8 @@
  * \file Application.h
  *********************************************************************************************************************/
 
-#ifndef BLINKY_LED_H_
-#define BLINKY_LED_H_
+#ifndef APPLICATION_H_
+#define APPLICATION_H_
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
@@ -11,4 +11,4 @@
 void initializeLEDPorts(void);
 void toggleLEDs(void);
 
-#endif /* BLINKY_LED_H_ */
+#endif /* APPLICATION_H_ */
